@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Shappy</string>
+    <string name="title_activity_code">CodeActivity</string>
+    <string name="scan_process_label">boo</string>
+    <string name="scan_result_label">something</string>
+</resources>

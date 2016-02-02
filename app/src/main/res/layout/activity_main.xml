@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.shappy.MainActivity">
+
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        android:id="@+id/toolbar"
+
+        >
+    </android.support.v7.widget.Toolbar>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
+        android:inputType="textPersonName"
+        android:hint="логин"
+        android:ems="10"
+        android:id="@+id/login_field"
+        android:layout_marginTop="170dp"
+        android:layout_below="@+id/toolbar"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
+        android:hint="пароль"
+        android:id="@+id/password_field"
+        android:layout_below="@+id/login_field"
+        android:layout_marginTop="70dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="войти"
+        android:id="@+id/login_button"
+        android:layout_below="@+id/password_field"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp" />
+
+
+</RelativeLayout>
