@@ -1,9 +1,5 @@
 package com.example.shappy.Helper;
 
-import android.util.Log;
-
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -16,19 +12,20 @@ import java.net.ProtocolException;
 import java.net.URL;
 
 /**
- * Created by Ivan on 2/2/2016.
+ * Created by Ivan on 2/4/2016.
  */
-public class CodeTransaction {
-    public static String createLoginRequest(String login, String password) {
-        return "login="+login+"&password="+password;
+public class CodeSend {
+
+    public static String createCheckCodeRequest(String token, String code) {
+        return "token="+token+"&code="+code;
     }
 
-    public static String login(String... params) throws IOException {
-        String login = params[0];
-        String password = params[1];
+    public static String checkAction(String... params) throws IOException {
+        String token = params[0];
+        String code = params[1];
         String response = "";
         try {
-            URL url = new URL("http://ec2-54-200-218-253.us-west-2.compute.amazonaws.com:8080/company/authorize");
+            URL url = new URL("http://ec2-54-200-218-253.us-west-2.compute.amazonaws.com:8080/company/stocks/apply");
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoInput(true);
@@ -43,7 +40,7 @@ public class CodeTransaction {
             OutputStreamWriter osw = new OutputStreamWriter(os);
 
             //String b = jsonObject.toString();
-            String request = createLoginRequest(login,password);
+            String request = createCheckCodeRequest(token, code);
             osw.write(request);
             osw.flush();
 
@@ -67,4 +64,5 @@ public class CodeTransaction {
         }
 
     }
+
 }

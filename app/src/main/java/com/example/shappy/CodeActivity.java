@@ -1,5 +1,7 @@
 package com.example.shappy;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.hardware.Camera;
 import android.os.Bundle;
@@ -9,6 +11,8 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.example.shappy.Helper.CodeSend;
 
 import net.sourceforge.zbar.Config;
 import net.sourceforge.zbar.Image;
@@ -35,6 +39,9 @@ public class CodeActivity extends AppCompatActivity {
     private Image codeImage;
 
 
+    SharedPreferences sharedpreferences;
+    public static final String userPreferences = "companyToken" ;
+    private CodeActivity codeActivity;
 
     static {
         System.loadLibrary("iconv");
@@ -47,11 +54,9 @@ public class CodeActivity extends AppCompatActivity {
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-
         autoFocusHandler = new Handler();
 
         preview = (FrameLayout) findViewById(R.id.cameraPreview);
-
 
         /* Instance barcode scanner */
         scanner = new ImageScanner();
@@ -60,6 +65,7 @@ public class CodeActivity extends AppCompatActivity {
 
         scanText = (TextView) findViewById(R.id.scanText);
 
+        sharedpreferences = getSharedPreferences(userPreferences, Context.MODE_PRIVATE );
     }
 
     @Override
@@ -98,7 +104,7 @@ public class CodeActivity extends AppCompatActivity {
         }
     }
 
-    private void resumeCamera() {
+    public void resumeCamera() {
         scanText.setText(getString(R.string.scan_process_label));
         mCamera = getCameraInstance();
         mPreview = new CameraPreview(this, mCamera, previewCb, autoFocusCB);
@@ -134,7 +140,16 @@ public class CodeActivity extends AppCompatActivity {
                         scanText.setText(lastScannedCode);
                         barcodeScanned = true;
                         if (barcodeScanned) {
-                            Toast.makeText(getApplicationContext(), lastScannedCode, Toast.LENGTH_SHORT).show();
+                            // if Text Appeared release scanning process
+                            //Toast.makeText(getApplicationContext(), lastScannedCode, Toast.LENGTH_SHORT).show();
+                            String token = sharedpreferences.getString("token", "");
+
+                            DiscountDialog dd = new DiscountDialog(CodeActivity.this);
+                            dd.show();
+                            onPause();
+                            break;
+                            //CodeSender codeSender = new CodeSender();
+                            //codeSender.execute(token, scanText.getText().toString());
 
                         }
                     }

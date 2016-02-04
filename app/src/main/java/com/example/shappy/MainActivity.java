@@ -1,6 +1,8 @@
 package com.example.shappy;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText loginfield;
     private EditText passwordfield;
     private Button loginButton;
+    SharedPreferences sharedpreferences;
+    public static final String userPreferences = "companyToken" ;
 
     static {
         System.loadLibrary("iconv");
@@ -32,12 +36,29 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("CodeScanner");
         loginfield = (EditText) findViewById(R.id.login_field);
         passwordfield = (EditText) findViewById(R.id.password_field);
         loginButton = (Button) findViewById(R.id.login_button);
+
+        sharedpreferences = getSharedPreferences(userPreferences,Context.MODE_PRIVATE );
+
+        // тестовые данные
+        loginfield.setText("AutoSushi");
+        passwordfield.setText("AutoSushi");
+
+        // check if token is saved somehow in shared preferences
+        boolean isTokenReal =  checkTokenIsReal();
+        if (isTokenReal) {
+            // if it is saved - launch new intent
+            Intent intent = new Intent(getApplicationContext(),ChooseActivity.class);
+            startActivity(intent);
+        }
+
+        // else fill fields and provide login credentials
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,13 +66,19 @@ public class MainActivity extends AppCompatActivity {
 
                     new DataSender().execute(loginfield.getText().toString(), passwordfield.getText().toString());
 
-                    //Intent intent = new Intent(getApplicationContext(),ChooseActivity.class);
-                    //startActivity(intent);
                 }
             }
         });
 
     }
+
+    public boolean checkTokenIsReal() {
+        String token = sharedpreferences.getString("token", "");
+        if (token.equals("")) {
+            return false; }
+        else return true;
+    }
+
     protected class DataSender extends AsyncTask<String, Void, String> {
 
         @Override
@@ -60,14 +87,9 @@ public class MainActivity extends AppCompatActivity {
             String password = params[1];
             String result = "";
             try {
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("login", login);
-                jsonObject.put("password", password);
-                result = CodeTransaction.login(jsonObject);
+                result = CodeTransaction.login(login,password);
             }
-            catch (JSONException j) {
-
-            } catch (IOException e) {
+            catch (IOException e) {
                 e.printStackTrace();
             }
             return result;
@@ -78,6 +100,21 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(s);
             if (!s.equals("")) {
                 Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+
+                //парсим пришедший json
+                String token = "";
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    token = jsonObject.getString("data");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putString("token", token);
+                editor.apply();
+
                 Intent intent = new Intent(getApplicationContext(),ChooseActivity.class);
                 startActivity(intent);
             }
