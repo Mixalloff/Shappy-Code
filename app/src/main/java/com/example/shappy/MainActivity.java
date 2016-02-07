@@ -13,6 +13,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.shappy.Helper.CodeTransaction;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,8 +51,11 @@ public class MainActivity extends AppCompatActivity {
         sharedpreferences = getSharedPreferences(userPreferences,Context.MODE_PRIVATE );
 
         // тестовые данные
-        loginfield.setText("AutoSushi");
-        passwordfield.setText("AutoSushi");
+        loginfield.setText("blahblah");
+        passwordfield.setText("blahblah");
+
+        // инициализация подгрузки картинок
+        initImageLoader(getApplicationContext());
 
         // check if token is saved somehow in shared preferences
         boolean isTokenReal =  checkTokenIsReal();
@@ -70,6 +77,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public static void initImageLoader(Context context) {
+        // This configuration tuning is custom. You can tune every option, you may tune some of them,
+        // or you can create default configuration by
+        //  ImageLoaderConfiguration.createDefault(this);
+        // method.
+        ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(context);
+        config.threadPriority(Thread.NORM_PRIORITY - 2);
+        config.denyCacheImageMultipleSizesInMemory();
+        config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
+        config.diskCacheSize(50 * 1024 * 512); // 25 MiB
+        config.tasksProcessingOrder(QueueProcessingType.LIFO);
+        config.writeDebugLogs(); // Remove for release app
+
+        // Initialize ImageLoader with configuration.
+        ImageLoader.getInstance().init(config.build());
     }
 
     public boolean checkTokenIsReal() {

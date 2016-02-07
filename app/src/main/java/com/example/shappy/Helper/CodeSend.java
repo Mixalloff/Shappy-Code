@@ -56,8 +56,11 @@ public class CodeSend {
             osw.flush();
             osw.close();
 
-        }
-        catch (MalformedURLException | ProtocolException | UnsupportedEncodingException e) {
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } finally {
             return response;

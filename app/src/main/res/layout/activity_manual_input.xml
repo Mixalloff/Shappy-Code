@@ -37,4 +37,12 @@
         android:layout_below="@+id/input_code_editText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_below="@+id/button_send_code"
+        android:layout_alignLeft="@+id/input_code_editText"
+        android:layout_alignStart="@+id/input_code_editText" />
 </RelativeLayout>
