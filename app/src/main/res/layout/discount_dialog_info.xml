@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="420dp"
+    android:layout_height="wrap_content"
     android:background="@color/transparent"
 
-    android:orientation="vertical">
-
+    >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,7 +17,7 @@
             >
 
         <TextView
-            android:id="@+id/txt_dia"
+            android:id="@+id/discount_header_text"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_gravity="center"
@@ -35,14 +34,14 @@
             android:src="@drawable/ic_highlight_remove_24dp"
             android:id="@+id/btn_no"
             android:clickable="false"
-            android:layout_alignTop="@+id/txt_dia"
-            android:layout_alignRight="@+id/txt_dia"
-            android:layout_alignEnd="@+id/txt_dia" />
+            android:layout_alignTop="@+id/discount_header_text"
+            android:layout_alignRight="@+id/discount_header_text"
+            android:layout_alignEnd="@+id/discount_header_text" />
 
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="2dp"
-                android:layout_below="@+id/txt_dia"
+                android:layout_below="@+id/discount_header_text"
                 android:background="#c0c0c0"/>
 
 
@@ -53,17 +52,26 @@
     <LinearLayout
         android:layout_below="@+id/l_lt1"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="#c4d8e7"
-        android:orientation="horizontal"
         android:id="@+id/l_lt2">
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/text"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:id="@+id/dialog_image_view"
+            />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="70dp"
         android:layout_below="@id/l_lt2"
 
         >
@@ -74,7 +82,7 @@
             <ProgressBar
                 android:id="@+id/progressBar"
                 style="?android:attr/progressBarStyleLarge"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="14dp"
                 android:layout_width="42dp"
                 android:layout_height="42dp"
                 android:progressDrawable="@drawable/circular_progress_bar"
@@ -93,6 +101,15 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/dialog_success_button"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/ic_done_24dp"
+                android:background="@color/transparent"
+                />
         </RelativeLayout>
 
 

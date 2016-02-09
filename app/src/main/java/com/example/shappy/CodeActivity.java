@@ -144,13 +144,13 @@ public class CodeActivity extends AppCompatActivity {
                             //Toast.makeText(getApplicationContext(), lastScannedCode, Toast.LENGTH_SHORT).show();
                             String token = sharedpreferences.getString("token", "");
 
-                            DiscountDialog dd = new DiscountDialog(CodeActivity.this);
+
+                            DiscountDialog dd = new DiscountDialog(CodeActivity.this, token, lastScannedCode);
                             dd.show();
                             onPause();
-                            break;
                             //CodeSender codeSender = new CodeSender();
                             //codeSender.execute(token, scanText.getText().toString());
-
+                            break;
                         }
                     }
                 }

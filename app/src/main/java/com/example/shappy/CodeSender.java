@@ -4,6 +4,9 @@ import android.os.AsyncTask;
 
 import com.example.shappy.Helper.CodeSend;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -18,20 +21,22 @@ import java.net.URL;
  *
  */
 public class CodeSender extends AsyncTask<String,Void,String> {
-
-    private URL url;
-    private static String address = "http://ec2-54-200-218-253.us-west-2.compute.amazonaws.com:8080/company/stocks/apply";
-
+    static String mode = "";
 
     @Override
     protected String doInBackground(String... params) {
+        String result ="";
         try {
             String token = params[0];
             String code = params[1];
+            mode = params[2];
 
-            url = new URL(address);
-            String result = CodeSend.checkAction(token,code);
-
+            if (mode.equals("check")) {
+                result = CodeSend.requestDiscountData(token, code);
+            }
+            else if (mode.equals("apply")) {
+                result = CodeSend.applyAction(token,code);
+            }
             String s = "";
 
         } catch (MalformedURLException e) {
@@ -40,6 +45,20 @@ public class CodeSender extends AsyncTask<String,Void,String> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return result;
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
+        String result = s;
+        try {
+            DiscountDialog.data = new JSONObject(s);
+            DiscountDialog.setData();
+            DiscountDialog.animateSuccess();
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

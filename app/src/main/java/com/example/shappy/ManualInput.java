@@ -32,9 +32,9 @@ public class ManualInput extends AppCompatActivity {
 
         sharedpreferences = getSharedPreferences(userPreferences, Context.MODE_PRIVATE);
 
-        codeEditText.setText("9653933649");
+        codeEditText.setText("8324967395");
 
-        ImageLoader imageLoader = ImageLoader.getInstance();
+        /*ImageLoader imageLoader = ImageLoader.getInstance();
         imageLoader.loadImage("http://townandcountryremovals.com/wp-content/uploads/2013/10/firefox-logo-200x200.png", new SimpleImageLoadingListener() {
             @Override
             public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
@@ -43,6 +43,7 @@ public class ManualInput extends AppCompatActivity {
         });
 
         imageLoader.displayImage("http://townandcountryremovals.com/wp-content/uploads/2013/10/firefox-logo-200x200.png", imageView);
+*/
 
         codeSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,9 +51,11 @@ public class ManualInput extends AppCompatActivity {
                 String stockCode = codeEditText.getText().toString();
                 String token = sharedpreferences.getString("token", "");
 
+                DiscountDialog dd = new DiscountDialog(ManualInput.this, token, stockCode);
+                dd.show();
 
-                CodeSender codeSender = new CodeSender();
-                codeSender.execute(token, stockCode);
+                //CodeSender codeSender = new CodeSender();
+                //codeSender.execute(token, stockCode);
             }
         });
 

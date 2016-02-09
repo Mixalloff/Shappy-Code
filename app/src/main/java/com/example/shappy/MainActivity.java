@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         initImageLoader(getApplicationContext());
 
         // check if token is saved somehow in shared preferences
+
         boolean isTokenReal =  checkTokenIsReal();
         if (isTokenReal) {
             // if it is saved - launch new intent

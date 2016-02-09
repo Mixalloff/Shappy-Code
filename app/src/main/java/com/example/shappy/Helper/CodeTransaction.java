@@ -19,9 +19,12 @@ import java.net.URL;
  * Created by Ivan on 2/2/2016.
  */
 public class CodeTransaction {
+
     public static String createLoginRequest(String login, String password) {
         return "login="+login+"&password="+password;
     }
+
+
 
     public static String login(String... params) throws IOException {
         String login = params[0];

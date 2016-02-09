@@ -16,16 +16,45 @@ import java.net.URL;
  */
 public class CodeSend {
 
+    public static String GETDiscountAddress = "http://ec2-54-200-218-253.us-west-2.compute.amazonaws.com:8080/company/stocks/codes/check";
+
     public static String createCheckCodeRequest(String token, String code) {
         return "token="+token+"&code="+code;
     }
+    public static String createApplyeCodeRequest(String token, String code) {
+        return "token="+token+"&code="+code;
+    }
 
-    public static String checkAction(String... params) throws IOException {
+    public static String requestDiscountData(String... params) throws IOException {
+        String token = params[0];
+        String code = params[1];
+        URL url = new URL(GETDiscountAddress+"?token="+token+"&code="+code);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        //connection.setRequestProperty("Content-Type", "application/x-ww-form-urlencoded");
+        connection.setRequestMethod("GET");
+
+        int responseCode = connection.getResponseCode();
+        System.out.println("\nSending 'GET' request to URL : " + url);
+        System.out.println("Response Code : " + responseCode);
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        String inputLine;
+        StringBuilder response = new StringBuilder();
+
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+
+        return response.toString();
+    }
+
+    public static String applyAction(String... params) throws IOException {
         String token = params[0];
         String code = params[1];
         String response = "";
         try {
-            URL url = new URL("http://ec2-54-200-218-253.us-west-2.compute.amazonaws.com:8080/company/stocks/apply");
+            URL url = new URL("http://ec2-54-200-218-253.us-west-2.compute.amazonaws.com:8080/company/stocks/codes/apply");
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoInput(true);
