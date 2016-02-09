@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -98,6 +99,7 @@ public class DiscountDialog extends Dialog implements android.view.View.OnClickL
                 try {
                     JSONObject stock = data.getJSONObject("data").getJSONObject("stock");
                     headerEditText.setText(stock.getString("name"));
+                    headerEditText.setEllipsize(TextUtils.TruncateAt.MARQUEE);
                     description = stock.getString("description");
                     imageAddress = stock.getString("thumb");
                     ImageLoader imageLoader = ImageLoader.getInstance();

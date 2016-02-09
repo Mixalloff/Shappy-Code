@@ -19,13 +19,23 @@
         <TextView
             android:id="@+id/discount_header_text"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:text="Test text"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:freezesText="true"
+            android:gravity="center"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:text="  "
             android:textColor="#f0545353"
-            android:textSize="26sp"
-            android:textStyle="bold"/>
+            android:textSize="22sp"
+            android:fontFamily="sans-serif-light"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="40dp" />
         <ImageButton
             android:contentDescription="wow"
             android:background="@color/transparent"
@@ -34,9 +44,9 @@
             android:src="@drawable/ic_highlight_remove_24dp"
             android:id="@+id/btn_no"
             android:clickable="false"
-            android:layout_alignTop="@+id/discount_header_text"
-            android:layout_alignRight="@+id/discount_header_text"
-            android:layout_alignEnd="@+id/discount_header_text" />
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
             <View
                 android:layout_width="fill_parent"
@@ -74,7 +84,7 @@
         android:layout_height="70dp"
         android:layout_below="@id/l_lt2"
 
-        >
+        android:id="@+id/linearLayout">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -95,7 +105,8 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/white"
                 android:clickable="true"
-                android:text="Yes"
+                android:textSize="16sp"
+                android:text="Применить"
                 android:textColor="#5DBCD2"
                 android:textStyle="bold"
                 android:layout_alignParentTop="true"
@@ -114,7 +125,5 @@
 
 
     </LinearLayout>
-
-
 
 </RelativeLayout>

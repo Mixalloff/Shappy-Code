@@ -32,7 +32,7 @@ public class ManualInput extends AppCompatActivity {
 
         sharedpreferences = getSharedPreferences(userPreferences, Context.MODE_PRIVATE);
 
-        codeEditText.setText("8324967395");
+        codeEditText.setText("7947503631");
 
         /*ImageLoader imageLoader = ImageLoader.getInstance();
         imageLoader.loadImage("http://townandcountryremovals.com/wp-content/uploads/2013/10/firefox-logo-200x200.png", new SimpleImageLoadingListener() {
